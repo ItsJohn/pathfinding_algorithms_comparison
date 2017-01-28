@@ -1,2 +1,4 @@
-Java/*.class
+C++/*
+!C++/*.cpp
 
+Java/*.class
