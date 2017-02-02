@@ -26,11 +26,11 @@ def createGraph(x):
 	data = json_graph.node_link_data(G)
 	result = data['links']
 	if file_size == 100:
-		name = 'small_graph'
+		name = 'small_graph.json'
 	if file_size == 1000:
-		name = 'medium_graph'
+		name = 'medium_graph.json'
 	if file_size == 10000:
-		name = 'large_graph'
+		name = 'large_graph.json'
 
 	with open(name, 'w') as outfile:
 	    json.dump(result, outfile)
@@ -38,7 +38,6 @@ def createGraph(x):
 	nx.draw(G)
 
 	plt.show()
-	print(result)
 
 
 file_size = int(input('Enter the size of the graph (100, 1000 or 10,000): '))
@@ -47,6 +46,7 @@ if file_size == 100 or file_size == 1000 or file_size ==10000:
 	createGraph(file_size)
 else:
 	file_size = int(input('Enter the size of the graph (100, 1000 or 10,000): '))
+	createGraph(file_size)
 
 
 
