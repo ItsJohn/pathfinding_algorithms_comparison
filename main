@@ -54,7 +54,7 @@ case $technology$graph in
             ;;
       21)
             echo "Python and small graph"
-            python3 Python/main.py
+            python3 Python/small_graph.py
             ;;
       22)
             echo "Python and Medium graph"
