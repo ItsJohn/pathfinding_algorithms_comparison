@@ -12,16 +12,12 @@ def createGraph(x):
 		i = i +1
 
 	ii = 1
-	while(ii<=x):
-		node_list = G.nodes()
-		the_node = random.randint(1,x-1)
-		node1 = node_list[the_node]
+	node_list = G.nodes()
+	for node in node_list:
 		the_second_node = random.randint(1,x-1)
 		node2 = node_list[the_second_node]
 		weight = random.uniform(0.0, 1.0)
-		G.add_edge(node1,node2,weight= weight)
-		ii = ii + 1
-		
+		G.add_edge(node,node2,weight= weight)
 
 	data = json_graph.node_link_data(G)
 	if file_size == 100:
