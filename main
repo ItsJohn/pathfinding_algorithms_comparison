@@ -58,9 +58,11 @@ case $technology$graph in
             ;;
       22)
             echo "Python and Medium graph"
+            python3 Python/medium_graph.py
             ;;
       23)
             echo "Python and Large graph"
+            python3 Python/large_graph.py
             ;;
       31)
             echo "C++ and small graph"

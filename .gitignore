@@ -4,4 +4,6 @@ C++/*
 Java/*.class
 Java/.DS_Store
 
+Python/__pycache__
+
 .DS_Store
