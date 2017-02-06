@@ -11,28 +11,25 @@ def createGraph(x):
 		G.add_node(i)
 		i = i +1
 
+	if file_size == 100:
+		name = 'small_graph.txt'
+	if file_size == 1000:
+		name = 'medium_graph.txt'
+	if file_size == 10000:
+		name = 'large_graph.txt'
+
+
 	ii = 1
 	node_list = G.nodes()
 	for node in node_list:
-		the_second_node = random.randint(1,x-1)
-		node2 = node_list[the_second_node]
-		weight = random.uniform(0.0, 1.0)
-		G.add_edge(node,node2,weight= weight)
-
-	data = json_graph.node_link_data(G)
-	if file_size == 100:
-		name = 'small_graph.json'
-	if file_size == 1000:
-		name = 'medium_graph.json'
-	if file_size == 10000:
-		name = 'large_graph.json'
-
-	with open(name, 'w') as outfile:
-	    json.dump(data, outfile)
-
-	nx.draw(G)
-
-	plt.show()
+		with open(name, 'a') as outfile:
+			the_second_node = random.randint(1,x-1)
+			node2 = node_list[the_second_node]
+			weight = random.uniform(0.0, 1.0)
+			G.add_edge(node,node2,weight= weight)
+			outfile.write(str(node) + ',' + str(node2) + ',' + str(weight) +'\n')
+	#nx.draw(G)
+	#plt.show()
 
 
 file_size = int(input('Enter the size of the graph (100, 1000 or 10,000): '))
