@@ -1,7 +1,7 @@
 from networkx.readwrite import json_graph
+import csv
 import matplotlib.pyplot as plt
 import networkx as nx
-import json
 import timeit
 
 
@@ -40,13 +40,15 @@ def choose_nodes(max_nodes):
 
 
 def open_file(filename):
+    graph = nx.Graph()
     with open(filename) as fh:
-        data = json.load(fh)
-    return data
+        for data in csv.reader(fh):
+            graph.add_edge(int(data[0]), int(data[1]), weight=float(data[2]))
+    return graph
 
 
 def create_graph(filename, max_nodes):
-    graph = json_graph.node_link_graph(open_file(filename))
+    graph = open_file(filename)
     layout = nx.circular_layout(graph)
     astar_elapsed_time, dijkstra_elapsed_time = calculate(graph, max_nodes)
     print("\nA* execution time:", astar_elapsed_time)

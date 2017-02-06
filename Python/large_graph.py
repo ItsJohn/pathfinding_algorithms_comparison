@@ -1,2 +1,2 @@
 from utils import create_graph
-create_graph('large_graph.json', 10000)
+create_graph('large_graph.txt', 10000)
