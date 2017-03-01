@@ -7,10 +7,8 @@ import matplotlib.pyplot as plt
 def createGraph(x):
 	shuffle_list =[]
 	G = nx.Graph()
-	i =1
-	while(i <= x):
+	for i in range(1,x):
 		G.add_node(i)
-		i = i +1
 
 	if file_size == 100:
 		name = 'small_graph.txt'
@@ -25,10 +23,9 @@ def createGraph(x):
 	for n in node_list:
 		shuffle_list.append(n)
 	random.shuffle(shuffle_list)
-	print(shuffle_list)
 
 	for i,node in enumerate(reversed(node_list)):
-		if i != 1:
+		if i != 0:
 			with open(name, 'a') as outfile:
 				node2 = node-1
 				weight = random.uniform(0.0, 1.0)
