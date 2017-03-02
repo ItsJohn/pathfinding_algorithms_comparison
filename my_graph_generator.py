@@ -27,9 +27,7 @@ def createGraph(x):
 	for i,node in enumerate(node_list):
 		if i is not 0 :
 			with open(name, 'a') as outfile:
-				print(node)
 				node2 = node_list[i-1]
-				print (node2)
 				
 				weight = random.uniform(0.0, 1.0)
 				G.add_edge(node,node2,weight= weight)
@@ -46,11 +44,12 @@ def createGraph(x):
 			with open(name, 'a') as outfile:
 				node1 = node_list[index]
 				node3 = shuffle_list[index]
-				temporary = (node,node3)
-				if temporary not in G.edges() and node1 is not node3:
+				temporary = [node1,node3]
+				s = tuple(sorted(temporary))
+				if s not in G.edges() and s[0] is not s[1]:
 					G.add_edge(node1,node3,weight= weight)
 					outfile.write(str(node1) + ',' + str(node3) + ',' + str(weight) +'\n')
-		index = index +1	
+		index = index +1
 
 file_size = int(input('Enter the size of the graph (100, 1000 or 10,000): '))
 
