@@ -140,7 +140,7 @@ public class utils
 					}
 					else
 					{
-						DefaultWeightedEdge e1 = G.addEdge(node1, node2); 						
+						DefaultWeightedEdge e1 = G.addEdge(node1, node2);
 						G.setEdgeWeight(e1, value);
 					}
 					break;
@@ -187,20 +187,31 @@ public class utils
 
 	}
 
-
 	public static Set getNodes(List<DefaultEdge> list, Graph G) throws IOException
 	{
 
 		Set<String> set = new LinkedHashSet<String>();//had to use LinkedHashSet as HashSet does not maintain input order
-				for (int i =0; i < list.size();i++)
-				{
-					String v1 = (String) G.getEdgeSource((DefaultWeightedEdge) list.get(i));
+		for (int i =1; i < list.size();i++)
+		{
+			String v1 = (String) G.getEdgeSource((DefaultWeightedEdge) list.get(i));
 
-					String v2 = (String) G.getEdgeTarget((DefaultWeightedEdge) list.get(i));
+			String v2 = (String) G.getEdgeTarget((DefaultWeightedEdge) list.get(i));
+			String v3 = (String) G.getEdgeSource((DefaultWeightedEdge) list.get(i - 1));
 
-					set.add(v1);
+			String v4 = (String) G.getEdgeTarget((DefaultWeightedEdge) list.get(i - 1));
+			if(v3.equals(v1) || v3.equals(v2)) {
+				set.add(v4);
+			} else {
+				set.add(v3);
+			}
+			if(i == list.size() - 1) {
+				if(v1.equals(v3) || v1.equals(v4)) {
 					set.add(v2);
+				} else {
+					set.add(v1);
 				}
+			}
+		}
 		return set;
 	}
 
