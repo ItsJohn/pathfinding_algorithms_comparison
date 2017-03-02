@@ -133,20 +133,18 @@ public class utils
 
 					if(node1.equals(node2))
 					{
+						System.out.println(node1);
+						System.out.println(node2);
 						System.out.println("Error");
 
 					}
 					else
 					{
-						DefaultWeightedEdge e1 = G.addEdge(node1, node2);
+						DefaultWeightedEdge e1 = G.addEdge(node1, node2); 						
 						G.setEdgeWeight(e1, value);
 					}
-
-
 					break;
 				}
-
-
 				stringBuffer.append(line);
 				stringBuffer.append("\n");
 			}
