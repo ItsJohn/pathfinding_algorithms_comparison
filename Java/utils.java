@@ -50,12 +50,18 @@ public class utils
 		
 		String startSearch = String.valueOf(startNode);
 		String destinationSearch = String.valueOf(endNode);
+		
+		
 
 		
 		Graph G = create_graph(filename);
+		System.out.println("G : " + G);
+		
+		
 		
 		long startDijkstra = System.nanoTime();
-		List<DefaultEdge> list = (List) DijkstraShortestPath.findPathBetween(G, startSearch, destinationSearch);
+		List<DefaultEdge> list =(List) DijkstraShortestPath.findPathBetween(G, startSearch, destinationSearch);
+		System.out.println("list: " + list);
 		long endDijkstra = System.nanoTime();
 		
 		
@@ -71,13 +77,13 @@ public class utils
 		System.out.println(list2);
 		
 		Set<String> dijkstra_set = getNodes( list, G);
-		Set<String> bellman_set = getNodes( list, G);
+		Set<String> bellman_set = getNodes( list2, G);
 		
-		String fileName = "Path.csv";
+		String fileName = "Path.txt";
 		File f = new File(fileName);
 		f.delete();
 		writeToFile( dijkstra_set, fileName);
-		writeToFile(bellman_set, fileName);		
+		writeToFile(bellman_set, fileName);
 		
 		
 	}
@@ -103,16 +109,17 @@ public class utils
 			String theLine;
 			while ((line = bufferedReader.readLine()) != null) {
 				words = line.split(",");
-				
 				for (int a = 0; a < words.length; a++) 	//for every line in the graph thats an array of words				
 				{
+					
 					if(a == 0)
 					{
 						node1 = words[a];
 						G.addVertex(node1);
 					}
-					for (int b = 0; b < words.length; b++) 					
+					for (int b = 0; b <= words.length; b++) 					
 					{
+						
 						if(b == 1)
 						{
 							node2 = words[b];
@@ -122,6 +129,7 @@ public class utils
 					}
 					for (int c = 0; c < words.length; c++) 					
 					{
+						
 						if(c == 2)
 						{
 							weight = words[c];
@@ -129,8 +137,19 @@ public class utils
 						
 					}
 					double value = Double.parseDouble(weight);
-					DefaultWeightedEdge e1 = G.addEdge(node1, node2); 
-		            G.setEdgeWeight(e1, value); 
+					
+					if(node1.equals(node2))
+					{
+						System.out.println("Error");
+						
+					}
+					else
+					{
+						DefaultWeightedEdge e1 = G.addEdge(node1, node2); 
+						G.setEdgeWeight(e1, value);
+					}
+					
+
 					break;
 				}
 				
@@ -143,8 +162,8 @@ public class utils
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return G;
+		
 	}
 	
 	public static void writeToFile(Set<String> set, String fileName) throws IOException
@@ -183,7 +202,6 @@ public class utils
 	{
 		
 		Set<String> set = new LinkedHashSet<String>();//had to use LinkedHashSet as HashSet does not maintain input order 
-				
 				for (int i =0; i < list.size();i++)
 				{
 					String v1 = (String) G.getEdgeSource((DefaultWeightedEdge) list.get(i));
