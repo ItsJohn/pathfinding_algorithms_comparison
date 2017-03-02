@@ -41,40 +41,67 @@ done
 
 case $technology$graph in
       11)
-            echo "Java and small graph"
+            echo "Starting Java and small graph"
             cd Java
-            javac main.java
-            java main
+            javac -cp ".:jgrapht.jar" small_graph.java utils.java
+            java -cp ".:jgrapht.jar" small_graph utils
+            cd ..
+            echo "Loading the graph with paths"
+            python3 draw_graph/draw_small_graph.py
             ;;
       12)
-            echo "Java and Medium graph"
+            echo "Starting Java and Medium graph"
+            cd Java
+            javac -cp ".:jgrapht.jar" medium_graph.java utils.java
+            java -cp ".:jgrapht.jar" medium_graph utils
+            cd ..
+            echo "Loading the graph with paths"
+            python3 draw_graph/draw_medium_graph.py
             ;;
       13)
-            echo "Java and Large graph"
+            echo "Starting Java and Large graph"
+            cd Java
+            javac -cp ".:jgrapht.jar" large_graph.java utils.java
+            java -cp ".:jgrapht.jar" large_graph utils
+            cd ..
+            echo "Loading the graph with paths"
+            python3 draw_graph/draw_large_graph.py
             ;;
       21)
-            echo "Python and small graph"
+            echo "Starting Python and small graph"
             python3 Python/small_graph.py
+            echo "Loading the graph with paths"
+            python3 draw_graph/draw_small_graph.py
             ;;
       22)
-            echo "Python and Medium graph"
+            echo "Starting Python and Medium graph"
             python3 Python/medium_graph.py
+            echo "Loading the graph with paths"
+            python3 draw_graph/draw_medium_graph.py
             ;;
       23)
-            echo "Python and Large graph"
+            echo "Starting Python and Large graph"
             python3 Python/large_graph.py
+            echo "Loading the graph with paths"
+            python3 draw_graph/draw_large_graph.py
             ;;
       31)
-            echo "C++ and small graph"
+            echo "Starting C++ and small graph"
             cd C++
-            g++ main.cpp -o main
+            g++ large_graph.cpp utils.cpp -I boost -o main
             ./main
             ;;
       32)
-            echo "C++ and Medium graph"
+            echo "Starting C++ and Medium graph"
+            cd C++
+            g++ large_graph.cpp utils.cpp -I boost -o main
+            ./main
             ;;
       33)
-            echo "C++ and Large graph"
+            echo "Starting C++ and Large graph"
+            cd C++
+            g++ large_graph.cpp utils.cpp -I boost -o main
+            ./main
             ;;
       *)
             echo "An error occurred"

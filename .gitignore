@@ -1,9 +1,14 @@
 C++/*
 !C++/*.cpp
+!C++/*.h
+!C++/boost
 
 Java/*.class
 Java/.DS_Store
 
 Python/__pycache__
 
+draw_graph/__pycache__
+
 .DS_Store
+paths.txt

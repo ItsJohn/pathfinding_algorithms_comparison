@@ -27,7 +27,7 @@ def get_paths():
         'dijkstra': [],
         'bellman_ford': []
     }
-    with open('paths.csv') as fh:
+    with open('paths.txt') as fh:
         for row_number, path in enumerate(csv.reader(fh)):
             for i, node in enumerate(path):
                 if i is not 0 and node != '':
