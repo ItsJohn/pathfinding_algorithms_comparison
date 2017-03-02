@@ -19,15 +19,15 @@ import org.jgrapht.*;
 
 
 
-public class utils
+public class utils 
 {
 	String filename;
 
-	public utils(String filename2) throws IOException
+	public utils(String filename2) throws IOException 
 	{
 		this.filename = filename2;
 		start(filename2);
-
+		
 	}
 	public static void start(String filename) throws IOException
 	{
@@ -37,8 +37,8 @@ public class utils
 		String weight = null;
 		int startNode = -1;
 		int endNode = -1;
-
-
+		
+		
 		while(startNode <= 0 | endNode <= 0)
 		{
 			System.out.println("Enter a start node");
@@ -46,55 +46,57 @@ public class utils
 			System.out.println("Enter a destination node");
 			endNode = reader.nextInt();
 		}
-
-
+		
+		
 		String startSearch = String.valueOf(startNode);
 		String destinationSearch = String.valueOf(endNode);
+		
+		
 
-
-
-
-		Graph G = create_graph(filename);
-
-
-
+		
+		Graph G = create_graph(filename);		
+		
 		long startDijkstra = System.nanoTime();
 		List<DefaultEdge> list =(List) DijkstraShortestPath.findPathBetween(G, startSearch, destinationSearch);
+		System.out.println("list: " + list);
 		long endDijkstra = System.nanoTime();
-
-
+		
+		
 		long startBellman = System.nanoTime();
 		List<DefaultEdge> list2 = (List) BellmanFordShortestPath.findPathBetween(G, startSearch,destinationSearch);
 		long endBellman = System.nanoTime();
-
-
+		
+		
 		System.out.println("Dijkstra's Duration (ms) " + (endDijkstra - startDijkstra));
+		System.out.println(list);
+		System.out.println("");
 		System.out.println("BellmanFord Duration (ms) " + (endBellman - startBellman));
-
+		System.out.println(list2);
+		
 		Set<String> dijkstra_set = getNodes( list, G);
 		Set<String> bellman_set = getNodes( list2, G);
-
-		String fileName = "../paths.txt";
+		
+		String fileName = "Path.txt";
 		File f = new File(fileName);
 		f.delete();
 		writeToFile( dijkstra_set, fileName);
 		writeToFile(bellman_set, fileName);
-
-
+		
+		
 	}
-
+	
 	public static Graph create_graph(String filename) throws IOException
 	{
 		String node1 = null;
 		String node2 = null;
 		String weight = null;
-
+		
 		String[] words;
-		 SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>  G =
-		            new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>
+		SimpleWeightedGraph<String, DefaultWeightedEdge>  G = 
+		            new SimpleWeightedGraph<String, DefaultWeightedEdge>
 		            (DefaultWeightedEdge.class);
-
-
+		
+		
 		try {
 			File file = new File(filename);
 			FileReader fileReader = new FileReader(file);//enables you to read from a file
@@ -104,63 +106,63 @@ public class utils
 			String theLine;
 			while ((line = bufferedReader.readLine()) != null) {
 				words = line.split(",");
-				for (int a = 0; a < words.length; a++) 	//for every line in the graph thats an array of words
+				for (int a = 0; a < words.length; a++) 	//for every line in the graph thats an array of words				
 				{
-
+					
 					if(a == 0)
 					{
 						node1 = words[a];
 						G.addVertex(node1);
 					}
-					for (int b = 0; b <= words.length; b++)
+					for (int b = 0; b <= words.length; b++) 					
 					{
-
+						
 						if(b == 1)
 						{
 							node2 = words[b];
 							G.addVertex(node2);
 						}
-
+	
 					}
-					for (int c = 0; c < words.length; c++)
+					for (int c = 0; c < words.length; c++) 					
 					{
-
+						
 						if(c == 2)
 						{
 							weight = words[c];
 						}
-
+						
 					}
 					double value = Double.parseDouble(weight);
-
+					
 					if(node1.equals(node2))
 					{
 						System.out.println("Error");
-
+						
 					}
 					else
 					{
-						DefaultWeightedEdge e1 = G.addEdge(node1, node2);
+						DefaultWeightedEdge e1 = G.addEdge(node1, node2); 
 						G.setEdgeWeight(e1, value);
 					}
-
+					
 
 					break;
 				}
-
-
+				
+				
 				stringBuffer.append(line);
 				stringBuffer.append("\n");
 			}
 			fileReader.close();
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return G;
-
+		
 	}
-
+	
 	public static void writeToFile(Set<String> set, String fileName) throws IOException
 	{
 		Object[] set_to_list = set.toArray();
@@ -169,8 +171,8 @@ public class utils
 		for (int i =0; i< set_to_list.length;i++)
 		{
 			String temp = (String) set_to_list[i];
-
-
+			
+			
 			try {
 				if(i == set_to_list.length -1)
 				{
@@ -181,31 +183,32 @@ public class utils
 					writer.write(temp + ",");
 				}
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+		 
 		}
 		writer.write("\n");
 
 		writer.close();
-
+		
 	}
-
-
+	
+	
 	public static Set getNodes(List<DefaultEdge> list, Graph G) throws IOException
 	{
-
-		Set<String> set = new LinkedHashSet<String>();//had to use LinkedHashSet as HashSet does not maintain input order
+		
+		Set<String> set = new LinkedHashSet<String>();//had to use LinkedHashSet as HashSet does not maintain input order 
 				for (int i =0; i < list.size();i++)
 				{
 					String v1 = (String) G.getEdgeSource((DefaultWeightedEdge) list.get(i));
-
+					   
 					String v2 = (String) G.getEdgeTarget((DefaultWeightedEdge) list.get(i));
-
+					
 					set.add(v1);
 					set.add(v2);
 				}
 		return set;
 	}
-
+	
 }
